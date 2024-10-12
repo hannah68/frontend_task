@@ -10,3 +10,9 @@ const SearchPage = () => {
 };
 
 export default SearchPage;
+
+// | sidebar|------------------------|
+// |        |                        |
+// |        |       main             |
+// |        |                        |
+// |        |-----------footer-------

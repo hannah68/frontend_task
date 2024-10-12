@@ -1,7 +1,11 @@
-import * as S from "./styles";
+import { BaseButton } from "./styles";
 
-const Button = () => {
-  return <button />;
+const Button = ({ onClick, label, icon, variant }) => {
+  return (
+    <BaseButton onClick={onClick} variant={variant}>
+      {label || icon}
+    </BaseButton>
+  );
 };
 
 export default Button;

@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { getSearchData } from "../../../services";
-import * as S from "./styles";
+import { SearchEngineConatiner, Title } from "./styles";
+
+import Search from "./Search";
+import Results from "./Results";
+import Filters from "./Filters";
 
 const SearchEngine = () => {
   const [data, setData] = useState([]);
@@ -13,7 +17,17 @@ const SearchEngine = () => {
     setData(getSearchData());
   };
 
-  return <S.SearchEngine>Search Engine Implementation</S.SearchEngine>;
+  return (
+    <SearchEngineConatiner>
+      <Title>
+        <h1>AI-Powered Regulatory Search</h1>
+        <p>Use the search engine to search for publications from courts and regulators.</p>
+      </Title>
+      <Search />
+      <Filters />
+      <Results />
+    </SearchEngineConatiner>
+  );
 };
 
 export default SearchEngine;
