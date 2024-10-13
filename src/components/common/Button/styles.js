@@ -1,7 +1,5 @@
 import styled, { css } from "styled-components";
 
-// background-color: ${({ theme }) => theme.colors.primaryGreen};
-
 export const variantStyles = {
   primary: css`
     background-color: ${({ theme }) => theme.colors.primaryGreen};
@@ -21,6 +19,11 @@ export const variantStyles = {
     &:hover {
       color: #1d9563;
     }
+  `,
+  secondaryColorStyles: css`
+    background-color: #ffffff;
+    color: ${({ theme, isActive }) => (isActive ? theme.colors.primaryGreen : "black")};
+    border: none;
   `,
   tertiary: css`
     background-color: white;

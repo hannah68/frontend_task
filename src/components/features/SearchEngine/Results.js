@@ -1,38 +1,112 @@
-import React from "react";
+import { useState } from "react";
+
 import * as S from "./styles";
-import Dropdown from "../../common/Dropdown";
 import Pagination from "../../common/Pagination";
 import { formatDate } from "../utils";
+import BaseDropdown from "../../common/Dropdown/BaseDropdown";
 
-export default function Results({ data }) {
-  const limitOptions = [5, 10, 15, 20].map(num => ({
-    label: num,
-    value: num,
-  }));
+export default function Results({ data, setData }) {
+  const [sortOption, setSortOption] = useState("sort-by");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
 
-  const sortByOptions = ["Date", "Category", "Decision", "Company"].map(num => ({
-    label: num,
-    value: num,
-  }));
+  const totalPages = Math.ceil(data.length / itemsPerPage);
+
+  const handleItemsPerPageChange = event => {
+    const newItemsPerPage = parseInt(event.target.value, 10);
+    setItemsPerPage(newItemsPerPage);
+    // Reset to first page when items per page changes
+    setCurrentPage(1);
+  };
+
+  const sortByTitle = (data, order = "asc") => {
+    return [...data].sort((a, b) => {
+      if (order === "asc") {
+        return a.title.localeCompare(b.title);
+      } else {
+        return b.title.localeCompare(a.title);
+      }
+    });
+  };
+
+  const sortByDate = (data, order = "desc") => {
+    return [...data].sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+
+      if (order === "asc") {
+        return dateA - dateB;
+      } else {
+        return dateB - dateA;
+      }
+    });
+  };
+
+  const handleSortChange = selectedOption => {
+    setSortOption(selectedOption);
+
+    switch (selectedOption) {
+      case "title-asc":
+        setData(sortByTitle(data, "asc"));
+        break;
+      case "title-desc":
+        setData(sortByTitle(data, "desc"));
+        break;
+      case "date-asc":
+        setData(sortByDate(data, "asc"));
+        break;
+      case "date-desc":
+        setData(sortByDate(data, "desc"));
+        break;
+      default:
+        setData(data);
+        break;
+    }
+  };
+
+  // Get the current items based on the current page and itemsPerPage
+  const getPaginatedData = () => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return data.slice(startIndex, endIndex);
+  };
+
+  const itemsPerPageOptions = [
+    { value: 5, label: 5 },
+    { value: 10, label: 10 },
+    { value: 15, label: 15 },
+    { value: 20, label: 20 },
+  ];
+
+  const sortOptions = [
+    { value: "sort-by", label: "Sort By" },
+    { value: "title-asc", label: "Title (A-Z)" },
+    { value: "title-desc", label: "Title (Z-A)" },
+    { value: "date-asc", label: "Date (Oldest to Newest)" },
+    { value: "date-desc", label: "Date (Newest to Oldest)" },
+  ];
 
   return (
     <S.ResultContainer>
       <S.ResultsHeader>
-        <div>
+        <S.ResultTitle>
           <h1>Results</h1>
-          <p>Showing results 1-5 of {data.length}.</p>
-        </div>
+          <p>
+            Showing results {currentPage}-5 of {data.length}.
+          </p>
+        </S.ResultTitle>
+        {/* Sorting */}
         <S.SortResult>
-          <Dropdown options={limitOptions} value={[]} onChange={() => undefined} label={5} />
-          <Dropdown options={sortByOptions} value={[]} onChange={() => undefined} label={"Sort By"} />
+          <BaseDropdown value={itemsPerPage} onChange={handleItemsPerPageChange} options={itemsPerPageOptions} />
+          <BaseDropdown value={sortOption} onChange={e => handleSortChange(e.target.value)} options={sortOptions} />
         </S.SortResult>
       </S.ResultsHeader>
       <S.ResultsMain>
-        {data.map(result => (
+        {getPaginatedData().map(result => (
           <S.Card key={result.id}>
             <S.CardDate>{formatDate(result.date)}</S.CardDate>
             <S.CardTitle>{result.title}</S.CardTitle>
-            <p>{result.content}</p>
+            <S.CardContent>{result.content}</S.CardContent>
             <S.CardFooter>
               <S.CardBottom>
                 <span>Category</span>
@@ -51,7 +125,8 @@ export default function Results({ data }) {
         ))}
       </S.ResultsMain>
       <S.Resultsfooter>
-        <Pagination data={[]} itemsPerPage={3} />
+        {/* Pagination */}
+        <Pagination data={data} setCurrentPage={setCurrentPage} currentPage={currentPage} totalPages={totalPages} />
       </S.Resultsfooter>
     </S.ResultContainer>
   );

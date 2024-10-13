@@ -6,6 +6,10 @@ export const SearchEngineConatiner = styled.div`
   width: 80%;
   margin: 0 auto;
   padding: 100px 2rem;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.smallScreen}) {
+    width: 100%;
+  }
 `;
 
 export const Title = styled.div`
@@ -19,7 +23,8 @@ export const Title = styled.div`
 
   p {
     margin-bottom: 2rem;
-    color: ${({ theme }) => theme.colors.primaryblack};
+    color: ${({ theme }) => theme.colors.primaryBlack};
+    font-size: 20px;
   }
 `;
 
@@ -47,6 +52,7 @@ export const DropdownList = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 5px;
 `;
 
 export const ResultContainer = styled.div`
@@ -60,11 +66,21 @@ export const ResultContainer = styled.div`
 export const ResultsHeader = styled.div`
   width: 100%;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   margin-bottom: 4rem;
 `;
 
-export const ResultsMain = styled.div``;
+export const ResultTitle = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+`;
+
+export const ResultsMain = styled.div`
+  width: 100%;
+`;
+
 export const Resultsfooter = styled.div``;
 export const SortResult = styled.div`
   display: flex;
@@ -75,10 +91,11 @@ export const Card = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  padding: 3rem 1rem;
+  padding: 3rem 0;
   border-bottom: 2px solid ${({ theme }) => theme.colors.secondaryBlack};
   cursor: pointer;
 `;
+
 export const CardFooter = styled.div`
   display: flex;
   justify-content: space-between;
@@ -100,4 +117,8 @@ export const CardTitle = styled.h3`
 
 export const CardDate = styled.span`
   font-weight: bold;
+`;
+
+export const CardContent = styled.p`
+  color: ${({ theme }) => theme.colors.primaryBlack};
 `;

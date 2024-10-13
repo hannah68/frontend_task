@@ -25,6 +25,7 @@ export const Sidebar = styled.div`
 export const Logo = styled.img`
   height: 3rem;
   width: 3rem;
+  cursor: pointer;
 `;
 
 export const Sidebarlist = styled.ul`
@@ -43,6 +44,7 @@ export const SidebarItem = styled.li`
   border-radius: 8px;
   padding: 6px 5px;
   cursor: pointer;
+  background-color: ${props => (props.isActive ? props.theme.colors.secondaryGreen : "transparent")};
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.secondaryGreen};
@@ -53,4 +55,18 @@ export const Main = styled.div`
   grid-column: 2;
   grid-row: 1/2;
   padding: 2rem;
+  //max-width: 1250px;
+`;
+
+export const MainHeader = styled.div`
+  grid-column: 2;
+  grid-row: 1/2;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1250px;
+  margin: 0 auto;
 `;

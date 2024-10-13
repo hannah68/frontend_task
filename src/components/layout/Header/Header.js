@@ -1,11 +1,12 @@
-import React from "react";
-import { UserInfo, Username, userPicture } from "./styles";
+import * as S from "./styles";
 
 export default function Header() {
   return (
-    <UserInfo>
-      <Username>reihaneh naderi</Username>
-      <userPicture>picture</userPicture>
-    </UserInfo>
+    <S.UserInfo>
+      <h3>Hannah Naderi</h3>
+      <S.UserPicture>
+        <span>H N</span>
+      </S.UserPicture>
+    </S.UserInfo>
   );
 }

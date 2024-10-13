@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
+import { FiSearch } from "react-icons/fi";
+
 import * as S from "./styles";
 import Button from "../../common/Button";
 import InputField from "../../common/InputFIeld";
-import { FiSearch } from "react-icons/fi";
 import { actionTypes, StoreContext } from "../../../store";
 
 export default function Search({ handleSubmitForm }) {

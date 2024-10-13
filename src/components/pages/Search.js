@@ -1,6 +1,12 @@
 import SearchEngine from "../features/SearchEngine";
 import DashboardLayout from "../layout/DashboardLayout";
 
+// |        |------------------------|
+// |        |                        |
+// |sidebar |         main           |
+// |        |                        |
+// |        |---------footer----------
+
 const SearchPage = () => {
   return (
     <DashboardLayout>
@@ -10,9 +16,3 @@ const SearchPage = () => {
 };
 
 export default SearchPage;
-
-// | sidebar|------------------------|
-// |        |                        |
-// |        |       main             |
-// |        |                        |
-// |        |-----------footer-------

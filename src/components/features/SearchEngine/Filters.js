@@ -1,5 +1,5 @@
-import React from "react";
 import { useContext } from "react";
+
 import Dropdown from "../../common/Dropdown";
 import * as S from "./styles";
 import Button from "../../common/Button";
@@ -8,41 +8,26 @@ import { StoreContext, actionTypes } from "../../../store";
 
 export default function Filters({ data, setData, originalData }) {
   const store = useContext(StoreContext);
-  console.log({ data });
 
   const categoryOptions = getUniqueOptions(data, "category");
   const companyOptions = getUniqueOptions(data, "company");
   const decisionOptions = getUniqueOptions(data, "decision");
+  const dateOptions = getUniqueOptions(data, "date");
 
-  const handleCategoryChange = selectedOption => {
-    const filterName = "category";
+  const handleFilterChange = (filterName, selectedOption) => {
     store.dispatch({
       type: actionTypes.NEW_FILTERNAME,
       payload: { selectedValue: selectedOption, filterName },
     });
-    const filteredData = data.filter(d => d.category === selectedOption.label);
+
+    const filteredData = originalData.filter(d => d[filterName] === selectedOption.label);
     setData(filteredData);
   };
 
-  const handleDecisionChange = selectedOption => {
-    const filterName = "decision";
-    store.dispatch({
-      type: actionTypes.NEW_FILTERNAME,
-      payload: { selectedValue: selectedOption, filterName },
-    });
-    const filteredData = data.filter(d => d.decision === selectedOption.label);
-    setData(filteredData);
-  };
-
-  const handleCompanyChange = selectedOption => {
-    const filterName = "company";
-    store.dispatch({
-      type: actionTypes.NEW_FILTERNAME,
-      payload: { selectedValue: selectedOption, filterName },
-    });
-    const filteredData = originalData.filter(d => d.company === selectedOption.label);
-    setData(filteredData);
-  };
+  const handleCategoryChange = selectedOption => handleFilterChange("category", selectedOption);
+  const handleDecisionChange = selectedOption => handleFilterChange("decision", selectedOption);
+  const handleCompanyChange = selectedOption => handleFilterChange("company", selectedOption);
+  const handleDateChange = selectedOption => handleFilterChange("date", selectedOption);
 
   const handleClearFilter = () => {
     store.dispatch({
@@ -57,38 +42,35 @@ export default function Filters({ data, setData, originalData }) {
     setData(originalData);
   };
 
-  console.log("state", store.state);
-
   return (
     <S.FilterContainer>
       <S.DropdownList>
         <Dropdown
           options={categoryOptions}
-          value={store.state.filterData.category || { label: "", value: "" }}
+          value={store.state.filterData.category.value ? store.state.filterData.category : null}
           onChange={handleCategoryChange}
           label="Category"
         />
         <Dropdown
           options={decisionOptions}
-          value={store.state.filterData.decision || { label: "", value: "" }}
+          value={store.state.filterData.decision.value ? store.state.filterData.decision : null}
           onChange={handleDecisionChange}
           label="Decision"
         />
         <Dropdown
           options={companyOptions}
-          value={store.state.filterData.company || { label: "", value: "" }}
+          value={store.state.filterData.company.value ? store.state.filterData.company : null}
           onChange={handleCompanyChange}
           label="Company"
         />
         <Dropdown
-          options={[]}
-          value={store.state.filterData.date || { label: "", value: "" }}
-          onChange={() => undefined}
-          label="Date"
+          options={dateOptions}
+          value={store.state.filterData.date.value ? store.state.filterData.date : null}
+          onChange={handleDateChange}
           isDateSelect={true}
         />
       </S.DropdownList>
-
+      {/* Clear Filters */}
       <Button label={"Clear Filters"} variant={"secondary"} onClick={handleClearFilter} />
     </S.FilterContainer>
   );

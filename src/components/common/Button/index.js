@@ -1,10 +1,10 @@
-import { BaseButton } from "./styles";
+import * as S from "./styles";
 
-const Button = ({ onClick, label, icon, variant, size, type }) => {
+const Button = ({ onClick, label, icon, variant, size, type, isActive }) => {
   return (
-    <BaseButton onClick={onClick} variant={variant} size={size} type={type}>
+    <S.BaseButton onClick={onClick} variant={variant} size={size} type={type} isActive={isActive}>
       {label || icon}
-    </BaseButton>
+    </S.BaseButton>
   );
 };
 

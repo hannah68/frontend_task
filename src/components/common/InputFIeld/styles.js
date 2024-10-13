@@ -21,7 +21,7 @@ export const Input = styled.input`
   border: 2px solid ${({ theme }) => theme.colors.secondaryBlack};
 
   &:focus {
-    border-color: #999999;
+    border-color: ${({ theme }) => theme.colors.primaryGreen};
     outline: none;
   }
 `;

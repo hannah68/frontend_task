@@ -9,29 +9,36 @@ export const sidebarItems = [
   {
     id: 1,
     icon: <CiHome size={40} />,
+    route: "#",
   },
   {
     id: 2,
     icon: <PiSuitcaseSimple size={40} />,
+    route: "#",
   },
   {
     id: 3,
     icon: <PiAddressBookTabsLight size={40} />,
+    route: "#",
   },
   {
     id: 4,
     icon: <FaRegFileAlt size={40} />,
+    route: "#",
   },
   {
     id: 5,
     icon: <FiSearch size={40} />,
+    route: "/",
   },
   {
     id: 6,
     icon: <CiSettings size={40} />,
+    route: "#",
   },
   {
     id: 7,
     icon: <GoQuestion size={40} />,
+    route: "#",
   },
 ];
