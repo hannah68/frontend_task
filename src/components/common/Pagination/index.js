@@ -1,6 +1,7 @@
 import React from "react";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import Button from "../Button";
+import { PaginationContainer } from "./styles";
 
 function Pagination() {
   return (
@@ -13,13 +14,17 @@ function Pagination() {
       </ul> */}
 
       {/* Pagination controls */}
-      <div>
-        <Button icon={<GrFormPrevious />} variant={"tertiary"} />
-        <button>1</button>
-        <button>2</button>
-        <button>3</button>
-        <Button icon={<GrFormNext />} variant={"tertiary"} />
-      </div>
+      <PaginationContainer>
+        <Button icon={<GrFormPrevious size={20} type="previous" />} variant={"tertiary"} />
+
+        <Button variant={"secondary"} label={1} size={"small"} />
+
+        <Button variant={"secondary"} label={2} size={"small"} />
+
+        <Button variant={"secondary"} label={3} size={"small"} />
+
+        <Button icon={<GrFormNext size={20} />} variant={"tertiary"} type={"next"} />
+      </PaginationContainer>
     </div>
   );
 }

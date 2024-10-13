@@ -14,6 +14,12 @@ export const Title = styled.div`
   h1 {
     font-size: 2rem;
     font-weight: bold;
+    margin-bottom: 2rem;
+  }
+
+  p {
+    margin-bottom: 2rem;
+    color: ${({ theme }) => theme.colors.primaryblack};
   }
 `;
 
@@ -70,7 +76,7 @@ export const Card = styled.div`
   flex-direction: column;
   gap: 1.5rem;
   padding: 3rem 1rem;
-  border-bottom: 2px solid #333;
+  border-bottom: 2px solid ${({ theme }) => theme.colors.secondaryBlack};
   cursor: pointer;
 `;
 export const CardFooter = styled.div`

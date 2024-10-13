@@ -8,5 +8,5 @@
 
 body {
   font-family: "Encode Sans Expanded", sans-serif;
-  color: var(--clr-text);
+  font-size: 16px;
 }

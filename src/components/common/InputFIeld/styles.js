@@ -18,4 +18,10 @@ export const Input = styled.input`
   padding-bottom: 1rem;
   padding-left: ${({ padding }) => padding};
   border-radius: 5px;
+  border: 2px solid ${({ theme }) => theme.colors.secondaryBlack};
+
+  &:focus {
+    border-color: #999999;
+    outline: none;
+  }
 `;

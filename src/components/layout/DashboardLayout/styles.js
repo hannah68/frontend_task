@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Layout = styled.div`
   display: grid;
-  grid-template-columns: 100px 1fr;
+  grid-template-columns: 120px 1fr;
   grid-template-rows: 1fr auto;
   height: 100vh;
 `;
@@ -13,6 +13,7 @@ export const Sidebar = styled.div`
   justify-content: flex-start;
   padding-top: 2rem;
   padding-left: 2rem;
+  padding-right: 2rem;
   gap: 8rem;
   width: full;
   height: min-content;
@@ -27,10 +28,26 @@ export const Logo = styled.img`
 `;
 
 export const Sidebarlist = styled.ul`
+  width: 100%;
   list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
 `;
 
-export const SidebarItem = styled.li``;
+export const SidebarItem = styled.li`
+  color: ${({ theme }) => theme.colors.tertiaryGreen};
+  width: 100%;
+  border-radius: 8px;
+  padding: 6px 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.secondaryGreen};
+  }
+`;
 
 export const Main = styled.div`
   grid-column: 2;

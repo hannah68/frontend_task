@@ -8,34 +8,46 @@ export const variantStyles = {
     color: white;
     width: 10rem;
     border-radius: 5px;
+    border: none;
+    padding: 1rem;
     &:hover {
-      background-color: #0056b3;
+      background-color: #1d9563;
     }
   `,
   secondary: css`
     background-color: #ffffff;
-    width: 10rem;
     color: ${({ theme }) => theme.colors.primaryGreen};
     border: none;
     &:hover {
-      background-color: #5a6268;
+      color: #1d9563;
     }
   `,
   tertiary: css`
-    background-color: transparent;
+    background-color: white;
     color: black;
-    border: 2px solid #007bff;
-    border-radius: 5px;
+    border: 2px solid ${({ theme }) => theme.colors.secondaryBlack};
+    padding: 6px;
     &:hover {
       background-color: rgba(0, 123, 255, 0.1);
     }
   `,
 };
 
+const secondaryWidthStyles = css`
+  width: ${({ size }) => (size === "small" ? "1.5rem" : "5rem")};
+`;
+
+const tertiaryBorderStyles = css`
+  border-radius: ${({ type }) => (type === "previous" ? "5px 0 0 5px" : "0 5px 5px 0")};
+`;
+
 export const BaseButton = styled.button`
   text-align: center;
-  ${({ variant }) => variantStyles[variant]}
-  padding: 1rem;
   text-decoration: none;
   cursor: pointer;
+  outline: none;
+
+  ${({ variant }) => variant === "secondary" && secondaryWidthStyles}
+  ${({ variant }) => variant === "tertiary" && tertiaryBorderStyles}
+  ${({ variant }) => variantStyles[variant]}
 `;

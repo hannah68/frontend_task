@@ -1,25 +1,25 @@
-import { Layout, Sidebar, SidebarItem, Sidebarlist, Main, Logo } from "./styles";
+import * as S from "./styles";
 import { sidebarItems } from "../sidebarItems";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 
 const DashboardLayout = ({ children }) => {
   return (
-    <Layout>
-      <Sidebar>
-        <Logo src="/icon.png" alt="CourtCorrect Logo" />
-        <Sidebarlist>
+    <S.Layout>
+      <S.Sidebar>
+        <S.Logo src="/icon.png" alt="CourtCorrect Logo" />
+        <S.Sidebarlist>
           {sidebarItems.map(item => (
-            <SidebarItem key={item.id}> {item.icon}</SidebarItem>
+            <S.SidebarItem key={item.id}> {item.icon}</S.SidebarItem>
           ))}
-        </Sidebarlist>
-      </Sidebar>
-      <Main>
+        </S.Sidebarlist>
+      </S.Sidebar>
+      <S.Main>
         <Header />
         {children}
-      </Main>
+      </S.Main>
       <Footer />
-    </Layout>
+    </S.Layout>
   );
 };
 
