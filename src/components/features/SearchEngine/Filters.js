@@ -20,8 +20,27 @@ export default function Filters({ data, setData, originalData }) {
       payload: { selectedValue: selectedOption, filterName },
     });
 
-    const filteredData = originalData.filter(d => d[filterName] === selectedOption.label);
-    setData(filteredData);
+    let filteredData = originalData;
+
+    if (store.state.filterData.category.value) {
+      filteredData = filteredData.filter(d => d.category === store.state.filterData.category.value);
+    }
+
+    if (store.state.filterData.decision.value) {
+      filteredData = filteredData.filter(d => d.decision === store.state.filterData.decision.value);
+    }
+
+    if (store.state.filterData.company.value) {
+      filteredData = filteredData.filter(d => d.company === store.state.filterData.company.value);
+    }
+
+    if (store.state.filterData.date.value) {
+      filteredData = filteredData.filter(d => d.date === store.state.filterData.date.value);
+    }
+
+    const res = filteredData.filter(d => d[filterName] === selectedOption.label);
+
+    setData(res);
   };
 
   const handleCategoryChange = selectedOption => handleFilterChange("category", selectedOption);

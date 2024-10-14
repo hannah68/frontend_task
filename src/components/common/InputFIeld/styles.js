@@ -19,6 +19,8 @@ export const Input = styled.input`
   padding-left: ${({ padding }) => padding};
   border-radius: 5px;
   border: 2px solid ${({ theme }) => theme.colors.secondaryBlack};
+  color: ${({ theme }) => theme.colors.primaryBlack};
+  font-size: 16px;
 
   &:focus {
     border-color: ${({ theme }) => theme.colors.primaryGreen};

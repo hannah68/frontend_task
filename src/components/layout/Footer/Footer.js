@@ -19,13 +19,13 @@ const Footer = () => {
         </S.FooterTopLeft>
         <S.FooterTopRight>
           <S.FooterLinks>
-            {links.map(text => (
-              <li>{text}</li>
+            {links.map((text, idx) => (
+              <li key={idx}>{text}</li>
             ))}
           </S.FooterLinks>
           <S.FooterLegals>
-            {legals.map(text => (
-              <li>{text}</li>
+            {legals.map((text, idx) => (
+              <li key={idx}>{text}</li>
             ))}
           </S.FooterLegals>
         </S.FooterTopRight>
@@ -33,8 +33,8 @@ const Footer = () => {
       <S.FooterBottomContent>
         <span>&copy; 2023 Courtcorrect LTD</span>
         <S.SocialMedia>
-          {socialIcons.map(text => (
-            <li>{text}</li>
+          {socialIcons.map((text, idx) => (
+            <li key={idx}>{text}</li>
           ))}
         </S.SocialMedia>
       </S.FooterBottomContent>

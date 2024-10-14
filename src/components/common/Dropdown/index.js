@@ -5,7 +5,7 @@ import { components } from "react-select";
 import * as S from "./styles";
 import { theme } from "../../../theme";
 
-export default function Dropdown({ label, options, value, onChange, isDateSelect }) {
+export default function Dropdown({ label, options, value, onChange, isDateSelect, width }) {
   const CustomPlaceholder = props => {
     return (
       <components.Placeholder {...props}>
@@ -40,7 +40,7 @@ export default function Dropdown({ label, options, value, onChange, isDateSelect
   };
 
   return (
-    <S.DropdownContainer>
+    <S.DropdownContainer width={width ? width : ""}>
       <div>
         <Select
           options={options}

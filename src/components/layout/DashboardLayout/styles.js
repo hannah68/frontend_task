@@ -55,7 +55,6 @@ export const Main = styled.div`
   grid-column: 2;
   grid-row: 1/2;
   padding: 2rem;
-  //max-width: 1250px;
 `;
 
 export const MainHeader = styled.div`

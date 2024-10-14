@@ -5,6 +5,7 @@ import * as S from "./styles";
 import Button from "../../common/Button";
 import InputField from "../../common/InputFIeld";
 import { actionTypes, StoreContext } from "../../../store";
+import { theme } from "../../../theme";
 
 export default function Search({ handleSubmitForm }) {
   const store = useContext(StoreContext);
@@ -16,7 +17,7 @@ export default function Search({ handleSubmitForm }) {
         label="Search"
         value={searchValue}
         onChange={e => store.dispatch({ type: actionTypes.UPDATE_SEARCHVALUE, payload: e.target.value })}
-        icon={<FiSearch size={30} />}
+        icon={<FiSearch size={30} color={theme.colors.secondaryBlack} />}
       />
       <Button label={"Search"} variant={"primary"} />
     </S.SearchForm>

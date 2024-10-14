@@ -6,6 +6,11 @@ export const UserInfo = styled.div`
   gap: 1rem;
   justify-content: end;
   align-items: center;
+
+  p {
+    font-size: 16px;
+    font-weight: medium;
+  }
 `;
 
 export const UserPicture = styled.div`

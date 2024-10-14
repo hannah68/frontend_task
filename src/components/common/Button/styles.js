@@ -13,7 +13,7 @@ export const variantStyles = {
     }
   `,
   secondary: css`
-    background-color: #ffffff;
+    background-color: white;
     color: ${({ theme }) => theme.colors.primaryGreen};
     border: none;
     &:hover {
@@ -21,18 +21,13 @@ export const variantStyles = {
     }
   `,
   secondaryColorStyles: css`
-    background-color: #ffffff;
+    background-color: white;
     color: ${({ theme, isActive }) => (isActive ? theme.colors.primaryGreen : "black")};
     border: none;
   `,
   tertiary: css`
-    background-color: white;
     color: black;
-    border: 2px solid ${({ theme }) => theme.colors.secondaryBlack};
     padding: 6px;
-    &:hover {
-      background-color: rgba(0, 123, 255, 0.1);
-    }
   `,
 };
 
@@ -41,7 +36,14 @@ const secondaryWidthStyles = css`
 `;
 
 const tertiaryBorderStyles = css`
-  border-radius: ${({ type }) => (type === "previous" ? "5px 0 0 5px" : "0 5px 5px 0")};
+  background-color: ${({ disabled }) => (!disabled ? "white" : "#f8f9fa")};
+  border-radius: ${({ type }) => (type === "next" ? "0 5px 5px 0" : "5px 0 0 5px")};
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+  pointer-events: ${({ disabled }) => (disabled ? "none" : "auto")};
+  border: 2px solid ${({ disabled, theme }) => (!disabled ? theme.colors.secondaryBlack : "#f8f9fa")};
+  &:hover {
+    background-color: ${({ disabled, theme }) => (!disabled ? theme.colors.secondaryGreen : "gray")};
+  }
 `;
 
 export const BaseButton = styled.button`

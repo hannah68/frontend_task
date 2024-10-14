@@ -1,20 +1,22 @@
 import { useState } from "react";
+import { TfiFaceSad } from "react-icons/tfi";
 
 import * as S from "./styles";
 import Pagination from "../../common/Pagination";
 import { formatDate } from "../utils";
-import BaseDropdown from "../../common/Dropdown/BaseDropdown";
+import Dropdown from "../../common/Dropdown";
 
 export default function Results({ data, setData }) {
-  const [sortOption, setSortOption] = useState("sort-by");
+  const [sortOption, setSortOption] = useState({ value: "", label: "" });
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const [itemsPerPage, setItemsPerPage] = useState({ label: 5, value: 5 });
 
-  const totalPages = Math.ceil(data.length / itemsPerPage);
+  const totalPages = Math.ceil(data.length / itemsPerPage.value);
+  const startIndex = (currentPage - 1) * itemsPerPage.value + 1;
+  const endIndex = Math.min(startIndex + itemsPerPage.value - 1, data.length);
 
-  const handleItemsPerPageChange = event => {
-    const newItemsPerPage = parseInt(event.target.value, 10);
-    setItemsPerPage(newItemsPerPage);
+  const handleItemsPerPageChange = selectedOption => {
+    setItemsPerPage(selectedOption);
     // Reset to first page when items per page changes
     setCurrentPage(1);
   };
@@ -45,7 +47,7 @@ export default function Results({ data, setData }) {
   const handleSortChange = selectedOption => {
     setSortOption(selectedOption);
 
-    switch (selectedOption) {
+    switch (selectedOption.value) {
       case "title-asc":
         setData(sortByTitle(data, "asc"));
         break;
@@ -66,8 +68,8 @@ export default function Results({ data, setData }) {
 
   // Get the current items based on the current page and itemsPerPage
   const getPaginatedData = () => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
+    const startIndex = (currentPage - 1) * itemsPerPage.value;
+    const endIndex = startIndex + itemsPerPage.value;
     return data.slice(startIndex, endIndex);
   };
 
@@ -79,54 +81,74 @@ export default function Results({ data, setData }) {
   ];
 
   const sortOptions = [
-    { value: "sort-by", label: "Sort By" },
     { value: "title-asc", label: "Title (A-Z)" },
     { value: "title-desc", label: "Title (Z-A)" },
     { value: "date-asc", label: "Date (Oldest to Newest)" },
     { value: "date-desc", label: "Date (Newest to Oldest)" },
   ];
-
+  console.log(getPaginatedData());
   return (
     <S.ResultContainer>
       <S.ResultsHeader>
         <S.ResultTitle>
           <h1>Results</h1>
           <p>
-            Showing results {currentPage}-5 of {data.length}.
+            Showing results {startIndex}- {endIndex} of {data.length}.
           </p>
         </S.ResultTitle>
         {/* Sorting */}
         <S.SortResult>
-          <BaseDropdown value={itemsPerPage} onChange={handleItemsPerPageChange} options={itemsPerPageOptions} />
-          <BaseDropdown value={sortOption} onChange={e => handleSortChange(e.target.value)} options={sortOptions} />
+          <Dropdown
+            options={itemsPerPageOptions}
+            value={itemsPerPage.value ? itemsPerPage : null}
+            onChange={handleItemsPerPageChange}
+            width={"5rem"}
+          />
+          <Dropdown
+            options={sortOptions}
+            value={sortOption.value ? sortOption : null}
+            onChange={handleSortChange}
+            label="Sort By"
+          />
         </S.SortResult>
       </S.ResultsHeader>
       <S.ResultsMain>
-        {getPaginatedData().map(result => (
-          <S.Card key={result.id}>
-            <S.CardDate>{formatDate(result.date)}</S.CardDate>
-            <S.CardTitle>{result.title}</S.CardTitle>
-            <S.CardContent>{result.content}</S.CardContent>
-            <S.CardFooter>
-              <S.CardBottom>
-                <span>Category</span>
-                <span>{result.category}</span>
-              </S.CardBottom>
-              <S.CardBottom>
-                <span>Decision</span>
-                <span>{result.decision}</span>
-              </S.CardBottom>
-              <S.CardBottom>
-                <span>Company</span>
-                <span>{result.company}</span>
-              </S.CardBottom>
-            </S.CardFooter>
-          </S.Card>
-        ))}
+        {getPaginatedData().length > 0 ? (
+          getPaginatedData().map(result => (
+            <S.Card key={result.id}>
+              <S.CardDate>{formatDate(result.date)}</S.CardDate>
+              <S.CardTitle>{result.title}</S.CardTitle>
+              <S.CardContent>{result.content}</S.CardContent>
+              <S.CardFooter>
+                <S.CardBottom>
+                  <span>Category</span>
+                  <span>{result.category}</span>
+                </S.CardBottom>
+                <S.CardBottom>
+                  <span>Decision</span>
+                  <span>{result.decision}</span>
+                </S.CardBottom>
+                <S.CardBottom>
+                  <span>Company</span>
+                  <span>{result.company}</span>
+                </S.CardBottom>
+              </S.CardFooter>
+            </S.Card>
+          ))
+        ) : (
+          <S.ErrorMessage>
+            <TfiFaceSad />
+            <p>No results found. Try a broader search or check your spelling, please.</p>
+          </S.ErrorMessage>
+        )}
       </S.ResultsMain>
       <S.Resultsfooter>
         {/* Pagination */}
-        <Pagination data={data} setCurrentPage={setCurrentPage} currentPage={currentPage} totalPages={totalPages} />
+        {getPaginatedData().length > 0 ? (
+          <Pagination data={data} setCurrentPage={setCurrentPage} currentPage={currentPage} totalPages={totalPages} />
+        ) : (
+          <></>
+        )}
       </S.Resultsfooter>
     </S.ResultContainer>
   );

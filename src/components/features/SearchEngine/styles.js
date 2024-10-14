@@ -75,6 +75,10 @@ export const ResultTitle = styled.div`
   display: flex;
   flex-direction: column;
   gap: 9px;
+
+  p {
+    color: ${({ theme }) => theme.colors.primaryBlack};
+  }
 `;
 
 export const ResultsMain = styled.div`
@@ -121,4 +125,11 @@ export const CardDate = styled.span`
 
 export const CardContent = styled.p`
   color: ${({ theme }) => theme.colors.primaryBlack};
+`;
+
+export const ErrorMessage = styled.div`
+  display: flex;
+  gap: 10px;
+  color: ${({ theme }) => theme.colors.primaryBlack};
+  justify-content: center;
 `;
