@@ -1,4 +1,5 @@
 import * as S from "./styles";
+
 import { links, legals, socialIcons } from "../utils";
 
 const Footer = () => {

@@ -39,7 +39,6 @@ export default function Filters({ data, setData, originalData }) {
     }
 
     const res = filteredData.filter(d => d[filterName] === selectedOption.label);
-
     setData(res);
   };
 
